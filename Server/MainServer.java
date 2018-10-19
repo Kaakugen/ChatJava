@@ -1,4 +1,4 @@
-package Server;
+package ChatJava.Server;
 
 import java.io.IOException;
 

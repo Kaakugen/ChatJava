@@ -1,21 +1,20 @@
-package Server;
-
-import Shared.ClientHandler;
+package ChatJava.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
-public class Server {
+public class Server implements Runnable{
 
 
     public static final int SERVER_PORT = 3000;
 
     private ServerSocket server;
     private Socket socket = new Socket();
+
+    public Thread t1;
 
 
 
@@ -24,28 +23,36 @@ public class Server {
         this.server = new ServerSocket(SERVER_PORT);
 
         System.out.println("server démmaré sur le port :"+ SERVER_PORT);
+        System.out.println("En attente de connexion...");
     }
 
-    public void WaitClient() throws IOException {
 
 
-        while (true) {
+    @Override
+    public void run() {
 
-            System.out.println("En attente de connexion...");
-            Socket client = this.server.accept();
+
+
+
+
+        try {
+
+            Socket client;
+            boolean run = true;
+
+        while (run){
+
+            System.out.println("Attente acceptation client...");
+            client = this.server.accept();
             System.out.println("Un client s'est connecté.");
 
+            t1 = new Thread(new ClientHandler(client));
+            System.out.println("on démarre client handler");
+            t1.start();
+            }
 
-            ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
-            ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
-
-
-
-        }
-
-
+        } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
-
-
-
 }

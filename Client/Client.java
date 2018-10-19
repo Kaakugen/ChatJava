@@ -1,6 +1,6 @@
-package Client;
+package ChatJava.Client;
 
-import Shared.AutentificationRequest;
+import ChatJava.Shared.AutentificationRequest;
 
 import java.io.*;
 import java.net.Socket;
@@ -17,17 +17,25 @@ public class Client {
 
     public Client() throws Exception {
 
-
-
+        this.client = new Socket(SERVER_HOST, SERVER_PORT);
         this.oos = new ObjectOutputStream(this.client.getOutputStream());
         this.ois = new ObjectInputStream(this.client.getInputStream());
 
 
     }
+/** Requete d'autentification du compte */
+
+boolean autentificate(String Username, String Password) throws IOException {
+
+    boolean access;
+
+        AutentificationRequest Areq = new AutentificationRequest(Username,Password);
+       this.oos.writeObject(Areq);
+       this.oos.flush();
 
 
+    return access;
 
-
+    }
 }
-
 

@@ -1,4 +1,4 @@
-package Shared;
+package ChatJava.Shared;
 
 public class Request {
 }
