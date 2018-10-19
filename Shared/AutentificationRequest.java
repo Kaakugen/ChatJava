@@ -1,0 +1,14 @@
+package Shared;
+
+    public class AutentificationRequest extends Request {
+
+        private String username;
+        private String password;
+
+        public AutentificationRequest(String username,String password) {
+
+        this.username = username;
+        this.password = password;
+
+    }
+}
